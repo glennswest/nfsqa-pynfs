@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euo pipefail
+
+usage() {
+    echo "Usage: nfsqa-pynfs-run [4.0|4.1] <server>:/export [test-flags...]"
+    echo ""
+    echo "Examples:"
+    echo "  nfsqa-pynfs-run 4.0 server:/export --maketree all"
+    echo "  nfsqa-pynfs-run 4.1 server:/export --maketree all"
+    echo "  nfsqa-pynfs-run 4.0 server:/export getattr lock"
+    exit 1
+}
+
+[ $# -lt 2 ] && usage
+
+VERSION="$1"
+shift
+
+case "$VERSION" in
+    4.0) cd /opt/nfsqa/pynfs/nfs4.0 ;;
+    4.1) cd /opt/nfsqa/pynfs/nfs4.1 ;;
+    *) echo "ERROR: version must be 4.0 or 4.1"; exit 1 ;;
+esac
+
+exec python3 ./testserver.py "$@"

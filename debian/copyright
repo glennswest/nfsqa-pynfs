@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: pynfs
+Upstream-Contact: https://github.com/kofemann/pynfs
+Source: https://github.com/kofemann/pynfs
+
+Files: *
+Copyright: 2004-2024 The pynfs Authors
+License: GPL-2.0

@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+%:
+	dh $@
+
+override_dh_auto_build:
+	cd nfs4.0 && python3 setup.py build_ext --inplace
+	cd nfs4.1 && python3 setup.py build_ext --inplace
+
+override_dh_auto_install:
+	mkdir -p debian/nfsqa-pynfs/opt/nfsqa/pynfs
+	cp -a nfs4.0 debian/nfsqa-pynfs/opt/nfsqa/pynfs/
+	cp -a nfs4.1 debian/nfsqa-pynfs/opt/nfsqa/pynfs/
+	cp -a lib debian/nfsqa-pynfs/opt/nfsqa/pynfs/ 2>/dev/null || true
+
+override_dh_auto_test:
+	# Skip tests during build
+
+override_dh_shlibdeps:
+	dh_shlibdeps -l/opt/nfsqa/pynfs/nfs4.0 -l/opt/nfsqa/pynfs/nfs4.1 || true
+
+override_dh_install:
+	dh_install
+	mkdir -p debian/nfsqa-pynfs/usr/bin
+	install -m 755 bin/nfsqa-pynfs-run debian/nfsqa-pynfs/usr/bin/

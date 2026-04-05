@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+
+case "$1" in
+    configure)
+        # Install xdrlib3 if python3-xdrlib is not available
+        if ! python3 -c "import xdrlib" 2>/dev/null; then
+            echo "nfsqa-pynfs: installing xdrlib3 via pip..."
+            pip3 install xdrlib3 2>/dev/null || true
+        fi
+
+        echo ""
+        echo "nfsqa-pynfs installed to /opt/nfsqa/pynfs/"
+        echo ""
+        echo "Run NFSv4.0 tests:"
+        echo "  cd /opt/nfsqa/pynfs/nfs4.0"
+        echo "  ./testserver.py <SERVER>:/export --maketree all"
+        echo ""
+        echo "Run NFSv4.1 tests:"
+        echo "  cd /opt/nfsqa/pynfs/nfs4.1"
+        echo "  ./testserver.py <SERVER>:/export --maketree all"
+        echo ""
+        echo "Or use: nfsqa-pynfs-run [4.0|4.1] <SERVER>:/export --maketree all"
+        echo ""
+        ;;
+esac
+
+#DEBHELPER#

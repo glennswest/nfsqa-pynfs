@@ -1,0 +1,16 @@
+Source: nfsqa-pynfs
+Section: misc
+Priority: optional
+Maintainer: NextNFS QA <nfsqa@localhost>
+Build-Depends: debhelper (>= 13), python3, python3-dev, python3-ply, python3-gssapi, swig, libkrb5-dev, git
+Standards-Version: 4.6.0
+
+Package: nfsqa-pynfs
+Architecture: any
+Depends: python3, python3-ply, python3-gssapi, ${shlibs:Depends}, ${misc:Depends}
+Recommends: python3-xdrlib
+Description: NFSv4 protocol conformance test suite (pynfs)
+ Wire-level NFSv4.0 and NFSv4.1 protocol conformance testing.
+ Speaks RPC directly to port 2049 — no kernel NFS mount required.
+ Includes ~565 NFSv4.0 tests and ~300 NFSv4.1 tests covering all
+ NFS operations.
